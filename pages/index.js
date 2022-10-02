@@ -1,12 +1,10 @@
 import React from 'react'
 import { Product, FooterBanner, HeroBanner } from './components/index'
-import { client } from '../library/SanityClient'
+import { client } from '../cms/SanityClient'
 
 const Home = ({ products, bannerData }) => (
   <div>
-    <HeroBanner heroBanner={
-      bannerData.length && bannerData[0]
-    } />
+    <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
     {/* {console.log(bannerData)} */}
 
     <div className="products-heading">
@@ -15,10 +13,12 @@ const Home = ({ products, bannerData }) => (
     </div>
 
     <div className="products-container">
-      {products?.map((product) => product.name)}
+      {products?.map((product) => (
+        <Product key={product._id} product={product} />
+      ))}
     </div>
 
-    <FooterBanner />
+    <FooterBanner footerBanner={bannerData.length && bannerData[0]} />
   </div>
 )
 

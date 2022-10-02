@@ -1,13 +1,3 @@
-Stripe (payments)
-CMS (sanity)
-NextJS (backend)
-ReactJS
-ContextAPI
-Routing
-Server-Side Rendering
-Static Generation
-File Routing
-
 ## Sanity controls via CLI commands
 
 - To start main project via CLI nav outside project's Sanity folder and run:$ npm run start
