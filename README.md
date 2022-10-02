@@ -1,3 +1,19 @@
+Stripe (payments)
+CMS (sanity)
+NextJS (backend)
+ReactJS
+ContextAPI
+Routing
+Server-Side Rendering
+Static Generation
+File Routing
+
+## Sanity controls via CLI commands
+
+- To start main project via CLI nav outside project's Sanity folder and run:$ npm run start
+- To access project CMS Manager CD into project's Sanity folder and run:$ sanity manage
+- To access project CMS Desk CD into project's Sanity folder and run:$ sanity start 
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
