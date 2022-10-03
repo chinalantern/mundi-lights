@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Link from 'next/link'
-import { urlFor } from '../../cms/SanityClient'
+import { urlFor } from '../cms/SanityClient'
 
 const FooterBanner = ({
   footerBanner: {

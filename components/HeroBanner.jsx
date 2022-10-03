@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { urlFor } from '../../cms/SanityClient'
+import { urlFor } from '../cms/SanityClient'
 
 const HeroBanner = ({ heroBanner }) => {
   return (

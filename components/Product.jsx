@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Link from 'next/link' // Link the product detils page
-import { urlFor } from '../../cms/SanityClient' // Get product url from Sanity Dashbord
+import { urlFor } from '../cms/SanityClient' // Get product url from Sanity Dashbord
 
 const Product = ({ product: { image, name, slug, price } }) => {
   return (
