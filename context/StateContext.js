@@ -6,9 +6,12 @@ const Context = createContext() // Hook
 export const StateContext = ({ children }) => {
   const [showCart, setShowCart] = useState(false)
   const [cartItems, setCartItems] = useState([])
-  const [totalPrice, setTotalPrice] = useState()
+  const [totalPrice, setTotalPrice] = useState(0)
   const [totalQuantities, setTotalQuantities] = useState(0)
   const [qty, setQty] = useState(1)
+
+  let foundProduct
+  let index
 
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find((item) => item.id === product.id)
@@ -45,6 +48,58 @@ export const StateContext = ({ children }) => {
     toast.success(`${qty} ${product.name} added to cart`)
   }
 
+  const onRemove = (product) => {
+    foundProduct = cartItems.find((item) => item._id === product._id)
+    const newCartItemsArray = cartItems.filter(
+      (item) => item._id !== product._id
+    )
+
+    setTotalPrice(
+      (previousTotalPrice) =>
+        previousTotalPrice - foundProduct.price * foundProduct.quantity
+    )
+    setTotalQuantities(
+      (previousTotalQuantities) =>
+        previousTotalQuantities - foundProduct.quantity
+    )
+    setCartItems(newCartItemsArray)
+  }
+
+  const toggleCartItemQuantity = (id, value) => {
+    foundProduct = cartItems.find((item) => item._id === id)
+    index = cartItems.findIndex((product) => product._id === id)
+
+    const newCartItemsArray = cartItems.filter((item) => item._id !== id)
+    if (value === 'inc') {
+      // Updating cart items by spreading current cart and adding an additional product obj
+      // but first we access/update the new product's "quantity" property
+      let newCartItems = [
+        ...newCartItemsArray,
+        { ...foundProduct, quantity: foundProduct.quantity + 1 },
+      ]
+
+      setCartItems(newCartItems)
+      setTotalPrice(
+        (previousTotalPrice) => previousTotalPrice + foundProduct.price
+      )
+      setTotalQuantities(
+        (previousTotalQuantities) => previousTotalQuantities + 1
+      )
+    } else if (value === 'dec') {
+      let newCartItems = [
+        ...newCartItemsArray,
+        { ...foundProduct, quantity: foundProduct.quantity - 1 },
+      ]
+      setCartItems(newCartItems)
+      setTotalPrice(
+        (previousTotalPrice) => previousTotalPrice - foundProduct.price
+      )
+      setTotalQuantities(
+        (previousTotalQuantities) => previousTotalQuantities - 1
+      )
+    }
+  }
+
   const increaseQty = () => {
     setQty((previousQty) => previousQty + 1) // Passing setQty() a callback function
   }
@@ -60,8 +115,8 @@ export const StateContext = ({ children }) => {
   return (
     <Context.Provider
       value={{
-              showCart,
-          setShowCart,
+        showCart,
+        setShowCart,
         cartItems,
         totalPrice,
         totalQuantities,
@@ -69,6 +124,8 @@ export const StateContext = ({ children }) => {
         increaseQty,
         decreaseQty,
         onAdd,
+        toggleCartItemQuantity,
+        onRemove,
       }}
     >
       {children}
